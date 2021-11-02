@@ -16,6 +16,7 @@ def main(screen):
     # create the cast {key: tag, value: list}
     cast = {}
 
+    # create the paddle
     x = int(constants.MAX_X / 2)
     y = int(constants.MAX_Y - 1)
     position = Point(x, y)
@@ -24,6 +25,7 @@ def main(screen):
     paddle.set_position(position)
     cast["paddle"] = [paddle]
 
+    # create a loop that creates all the bricks
     cast["brick"] = []
     for x in range(5, 75):
         for y in range(2, 6):
@@ -33,6 +35,7 @@ def main(screen):
             brick.set_position(position)
             cast["brick"].append(brick)
 
+    # create the ball
     x = int(constants.MAX_X / 2)
     y = int(constants.MAX_Y / 2)
     position = Point(x, y)
@@ -50,11 +53,11 @@ def main(screen):
     output_service = OutputService(screen)
     control_actors_action = ControlActorsAction(input_service)
     move_actors_action = MoveActorsAction()
-    handle_collisions_acition = HandleCollisionsAction()
+    handle_collisions_action = HandleCollisionsAction()
     draw_actors_action = DrawActorsAction(output_service)
     
     script["input"] = [control_actors_action]
-    script["update"] = [move_actors_action, handle_collisions_acition]
+    script["update"] = [move_actors_action, handle_collisions_action]
     script["output"] = [draw_actors_action]
 
     # start the game
