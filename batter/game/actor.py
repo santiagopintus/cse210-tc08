@@ -64,6 +64,21 @@ class Actor:
         """Updates the actor's velocity to the given one.
         
         Args:
-            position (Point): The given velocity.
+            velocity (Point): The given velocity.
         """
         self._velocity = velocity
+
+    def invert_velocity(self):
+        """Inverts the actor's velocity."""
+        self._velocity = Point(-self._velocity.get_x(), -self._velocity.get_y())
+        self.set_velocity(self._velocity)
+
+    def invert_y_velocity(self):
+        """Inverts the actor's y velocity."""
+        self._velocity = Point(self._velocity.get_x(), -self._velocity.get_y())
+        self.set_velocity(self._velocity)
+
+    def invert_x_velocity(self):
+        """Inverts the actor's x velocity."""
+        self._velocity = Point(-self._velocity.get_x(), self._velocity.get_y())
+        self.set_velocity(self._velocity)

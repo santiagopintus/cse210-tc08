@@ -21,7 +21,7 @@ def main(screen):
     y = int(constants.MAX_Y - 1)
     position = Point(x, y)
     paddle = Actor()
-    paddle.set_text("===========")
+    paddle.set_text("=" * constants.PADDLE_WIDTH)
     paddle.set_position(position)
     cast["paddle"] = [paddle]
 

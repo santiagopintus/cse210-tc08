@@ -45,7 +45,6 @@ class Counter:
         """
         self.__lives -= 1
 
-
     def reset(self):
         """Resets the score to 0
 
@@ -64,5 +63,8 @@ class Counter:
 
     def get_score(self):
         """Gets the score the player has
+
+        Arg:
+            self: An instance of Counter
         """
         return self.__score

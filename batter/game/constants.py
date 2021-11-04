@@ -1,0 +1,6 @@
+import os
+
+MAX_X = 80
+MAX_Y = 20
+PADDLE_WIDTH = 11
+FRAME_LENGTH = 0.025

@@ -40,5 +40,11 @@ class MoveActorsAction():
         y2 = velocity.get_y()
         x = 1 + (x1 + x2 - 1) % (constants.MAX_X - 1)
         y = 1 + (y1 + y2 - 1) % (constants.MAX_Y - 1)
+
+        if actor.get_text() == 'paddle':
+            if (x1 == constants.MAX_X - constants.PADDLE_WIDTH
+            and x2 > 0):
+                x = constants.MAX_X - constants.PADDLE_WIDTH
+            
         position = Point(x, y)
         actor.set_position(position)

@@ -25,7 +25,12 @@ class OutputService:
         self._screen.clear_buffer(7, 0, 0)
         self._screen.print_at("-" * constants.MAX_X, 0, 0, 7)
         self._screen.print_at("-" * constants.MAX_X, 0, constants.MAX_Y, 7)
-        
+    
+    def print_score_and_lives(self, score, lives):
+        """Prints the current score and lives on the screen.""" 
+        self._screen.print_at("Score: " + str(score), 0, 0, 7)
+        self._screen.print_at("Lives: " + str(lives), 0, 1, 7)
+
     def draw_actor(self, actor):
         """Renders the given actor's text on the screen.
 
