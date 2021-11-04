@@ -9,32 +9,32 @@ class Counter:
     Methods: 
         increment(), decrement(), reset(), get_points()
     """
-    def __init__(self, score=0, lives=5):
+    def __init__(self):
         """The class contructor
 
         Args: 
             Self: An instance of Counter
         """
-        self.__score = score
-        self.__lives = lives
+        self.__score = 0
+        self.__lives = 5
 
-    def increment(self, score=1):
+    def increment(self):
         """Increments the score by 1
 
         Args: 
             self: An instance of Counter
             score (int): the number of points to increment by
         """
-        self.__score += score
+        self.__score += 1
 
-    def decrement(self, score=1):
+    def decrement(self):
         """Decrements the score by 1
 
         Args: 
             self: An instance of Counter
             score (int): the number of points to increment by
         """
-        self.__score -= score
+        self.__score -= 1
 
     def decrement_lives(self):
         """Decrements the number of lives the player has

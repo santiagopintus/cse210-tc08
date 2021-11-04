@@ -1,5 +1,3 @@
-from game.counter import Counter
-
 class DrawActorsAction():
     """A code template for drawing actors. The responsibility of this class of
     objects is use an output service to draw all actors on the screen.
@@ -21,7 +19,6 @@ class DrawActorsAction():
             output_service (OutputService): An instance of OutputService.
         """
         self._output_service = output_service
-        self.__counter = Counter()
         self.__current_score = 0
         self.__current_lives = 5
 
@@ -44,6 +41,6 @@ class DrawActorsAction():
         
         for group in cast.values():
             self._output_service.draw_actors(group)
-            
+
         self._output_service.print_score_and_lives(self.__current_score, self.__current_lives)
         self._output_service.flush_buffer()

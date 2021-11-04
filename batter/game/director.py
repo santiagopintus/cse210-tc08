@@ -20,6 +20,8 @@ class Director:
         self.__keep_playing = True
         self.__constants = constants
         self.__counter = Counter()
+        self.__score = self.__counter.get_score()
+        self.__lives = self.__counter.get_lives()
 
     def start_game(self):
         """Starts the game!
@@ -48,7 +50,11 @@ class Director:
         """
         for script in self.__script["update"]:
             script.execute(self.__cast)
-        self.__script["output"][0].set_score_and_lives(self.__counter.get_score(), self.__counter.get_lives())
+        self.__score = self.__counter.get_score()
+        self.__lives = self.__counter.get_lives()
+        self.__script["output"][0].set_score_and_lives(
+            self.__score, self.__lives
+        )
 
     def do_outputs(self):
         """Does the outputs to the user.

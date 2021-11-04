@@ -67,6 +67,15 @@ class Actor:
             velocity (Point): The given velocity.
         """
         self._velocity = velocity
+    
+    def set_x_velocity(self, x):
+        """Sets the actor's x velocity to the given one.
+        
+        Args:
+            x (int): The given value.
+        """
+        self._velocity = Point(x, self._velocity.get_y())
+        self.set_velocity(self._velocity)
 
     def invert_velocity(self):
         """Inverts the actor's velocity."""
