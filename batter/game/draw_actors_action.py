@@ -7,9 +7,6 @@ class DrawActorsAction():
 
     Attributes:
         _output_service (OutputService): An instance of OutputService.
-        counter (Counter): An instance of Counter.
-        current_score (int): The current score.
-        current_lives (int): The current lives.
     """
 
     def __init__(self, output_service):
@@ -19,29 +16,33 @@ class DrawActorsAction():
             output_service (OutputService): An instance of OutputService.
         """
         self._output_service = output_service
-        self.__current_score = 0
-        self.__current_lives = 5
-
-    def set_score_and_lives(self, score, lives):
-        """Sets the current score.
-
-        Args:
-            self: The current instance of DrawActorsAction.
-        """
-        self.__current_score = score
-        self.__current_lives = lives
 
     def execute(self, cast):
         """Executes the action using the given actors.
 
         Args:
+            self: The instance of the draw actors action class
             cast (dict): The game actors {key: tag, value: list}.
         """
         self._output_service.clear_screen()
-        
-        self._output_service.print_score_and_lives(self.__current_score, self.__current_lives)
         
         for group in cast.values():
             self._output_service.draw_actors(group)
 
         self._output_service.flush_buffer()
+
+    def print_game_over(self):
+        """Prints the game over message.
+        
+        Args:
+            self: The instance of the draw actors action class
+        """
+        self._output_service.print_game_over()
+
+    def print_congrats(self):
+        """Prints the congratulations message.
+        
+        Args:
+            self: The instance of the draw actors action class
+        """
+        self._output_service.print_congrats()

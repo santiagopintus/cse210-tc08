@@ -1,6 +1,6 @@
-from game.counter import Counter
 from game.point import Point
 from game import constants
+import sys
 
 class HandleCollisionsAction():
     """A code template for handling collisions. The responsibility of this class of objects is to update the game state when actors collide.
@@ -9,7 +9,6 @@ class HandleCollisionsAction():
         Controller
 
     Attributes:
-        __counter (Counter): An instance of the counter class.
         __constants: Some constants.
     """
     def __init__(self):
@@ -17,6 +16,8 @@ class HandleCollisionsAction():
 
         """
         self.__constants = constants
+        self.__keep_playing = True
+        self.__win = True
 
     def execute(self, cast):
         """Executes the action using the given actors.
@@ -47,11 +48,15 @@ class HandleCollisionsAction():
             ball_xy (Point): The ball position.
             bricks (list): The list of bricks.
         """
-        for brick in bricks:
-            if ball_xy.equals(brick.get_position()):
-                bricks.remove(brick)
-                self.__counter.increment()
-                ball.invert_y_velocity()
+        if len(bricks) > 0:
+            for brick in bricks:
+                if ball_xy.equals(brick.get_position()):
+                    bricks.remove(brick)
+                    ball.invert_y_velocity()
+        else:
+            self.__win = True
+            self.__keep_playing = False
+
 
     def handle_paddle_collision(self, ball, ball_x, ball_y, paddle):
         """Handles the paddle collision.
@@ -97,12 +102,22 @@ class HandleCollisionsAction():
         
         #If the ball hits the bottom of the screen:
         if ball_y == self.__constants.MAX_Y - 1:
-            self.__counter.decrement_lives()
-            ball.set_position(Point(int(self.__constants.MAX_X / 2), int(self.__constants.MAX_Y / 2)))
-            ball.set_velocity(Point(1, -1))
-        
+            # ball.set_position(Point(int(self.__constants.MAX_X / 2), int(self.__constants.MAX_Y / 2)))
+            # ball.set_velocity(Point(1, -1))
+            self.__win = False
+            self.__keep_playing = False
+
         #If the ball hits the left side of the screen:
         if (ball_x == 1 
             or 
             ball_x == self.__constants.MAX_X - 1):
             ball.invert_x_velocity()
+    
+    def get_final_results(self):
+        """Returns the keep playing and win value.
+
+        Returns:
+            bool: The keep playing value.
+            bool: The win value.
+        """
+        return self.__keep_playing, self.__win

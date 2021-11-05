@@ -1,6 +1,7 @@
-import sys
 from game import constants
-from asciimatics.widgets import Frame
+from asciimatics.effects import Cycle, Stars
+from asciimatics.renderers import FigletText
+from asciimatics.scene import Scene
 
 class OutputService:
     """Outputs the game state. The responsibility of the class of objects is to draw the game state on the terminal. 
@@ -17,19 +18,22 @@ class OutputService:
         
         Args:
             screen (Screen): An Asciimatics Screen.
+            cycle (Cycle): An Asciimatics effect.
+            stars (Stars): An Asciimatics effect.
+            figlet (FigletText): An Asciimatics renderer.
+            scene (Scene): An Asciimatics scene.
         """
         self._screen = screen
+        self._cycle = Cycle
+        self._stars = Stars
+        self._figlet = FigletText
+        self._scene = Scene
         
     def clear_screen(self):
         """Clears the Asciimatics buffer for the next rendering.""" 
         self._screen.clear_buffer(7, 0, 0)
         self._screen.print_at("-" * constants.MAX_X, 0, 0, 7)
         self._screen.print_at("-" * constants.MAX_X, 0, constants.MAX_Y, 7)
-    
-    def print_score_and_lives(self, score, lives):
-        """Prints the current score and lives on the screen.""" 
-        self._screen.print_at("Score: " + str(score), 0, 0, 7)
-        self._screen.print_at("Lives: " + str(lives), 0, 1, 7)
 
     def draw_actor(self, actor):
         """Renders the given actor's text on the screen.
@@ -55,3 +59,30 @@ class OutputService:
     def flush_buffer(self):
         """Renders the screen.""" 
         self._screen.refresh()    
+
+    def print_game_over(self):
+        effects = [
+            self._cycle(
+                self._screen,
+                self._figlet("GAME", font='big'),
+                int(constants.MAX_Y/2 - 3)
+            ),
+            self._cycle(
+                self._screen,
+                self._figlet("OVER", font='big'),
+                int(constants.MAX_Y/2 + 3),
+            ),
+            self._stars(self._screen,100)
+        ]
+        self._screen.play([self._scene(effects, 5000)])
+
+    def print_congrats(self):
+        effects = [
+            self._cycle(
+                self._screen,
+                self._figlet("Congratulations", font='big'),
+                int(constants.MAX_Y/2)
+            ),
+            self._stars(self._screen,100)
+        ]
+        self._screen.play([self._scene(effects, 5000)])
