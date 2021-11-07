@@ -31,7 +31,7 @@ class Director:
         if self.__user_won:
             self.print_congrats()
         else:
-            self.print_congrats()
+            self.print_game_over()
 
 
     def get_inputs(self):
